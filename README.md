@@ -1,53 +1,53 @@
 # OCRdetect
 
-一个基于ddddocr的验证码识别Flask API服务，支持图像预处理以提高识别准确率。可打包成Windows可执行文件，无需Python环境。
+A Flask API service for captcha recognition based on ddddocr, with image preprocessing to improve accuracy. Can be packaged into Windows executable files without requiring Python environment.
 
-## 功能特点
+## Features
 
-- 基于ddddocr的高性能OCR识别
-- 🖼️ 智能图像预处理（降噪、二值化、增强对比度）
-- 🌐 跨域支持，适合油猴脚本调用
-- 📦 支持打包成独立可执行文件，无需Python环境
-- 自动测试和CI/CD支持
+- High-performance OCR recognition based on ddddocr
+- Smart image preprocessing (noise reduction, binarization, contrast enhancement)
+- CORS support for userscript calls
+- Support for packaging into standalone executable files without Python environment
+- Automatic testing and CI/CD support
 
-## 安装和运行
+## Installation and Running
 
-### 方法1：直接运行（需要Python环境）
+### Method 1: Direct run (requires Python environment)
 
 ```bash
-# 安装依赖
+# Install dependencies
 pip install -r requirements.txt
 
-# 运行服务
+# Run service
 python main.py
 ```
 
-### 方法2：打包成可执行文件（推荐）
+### Method 2: Package into executable (recommended)
 
-#### Windows打包
+#### Windows packaging
 ```cmd
-# 运行打包脚本
+# Run packaging script
 python build_exe.py
 
-# 或在Windows上双击
+# Or double-click on Windows
 build_exe.bat
 ```
 
-打包完成后，会在 `dist/` 目录下生成 `OCR_Service.exe` 文件，可以直接在任何Windows电脑上运行，无需安装Python。
+After packaging, an `OCR_Service.exe` file will be generated in the `dist/` directory, which can be run directly on any Windows computer without installing Python.
 
-#### 其他平台
-虽然主要针对Windows优化，但也可以在Linux/Mac上打包：
+#### Other platforms
+Although primarily optimized for Windows, it can also be packaged on Linux/Mac:
 ```bash
 python build_exe.py
 ```
 
-## API 使用
+## API Usage
 
 ### POST /ocr
 
-识别验证码图像
+Recognize captcha images
 
-**请求示例：**
+**Request example:**
 ```javascript
 fetch('http://127.0.0.1:5000/ocr', {
   method: 'POST',
@@ -55,16 +55,16 @@ fetch('http://127.0.0.1:5000/ocr', {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-    image: 'base64编码的图像数据'
+    image: 'base64-encoded image data'
   })
 })
 .then(response => response.json())
 .then(data => {
-  console.log('识别结果:', data.code);
+  console.log('Recognition result:', data.code);
 });
 ```
 
-**响应示例：**
+**Response example:**
 ```json
 {
   "code": "XNH3ZB",
@@ -72,60 +72,60 @@ fetch('http://127.0.0.1:5000/ocr', {
 }
 ```
 
-## 项目结构
+## Project Structure
 
 ```
-├── main.py              # 主服务文件
-├── requirements.txt     # Python依赖
-├── ocr_service.spec     # PyInstaller配置文件
-├── build_exe.py         # 跨平台打包脚本
-├── build_exe.bat        # Windows打包脚本
-├── test_ocr.py          # 测试脚本
-├── README.md           # 说明文档
+├── main.py              # Main service file
+├── requirements.txt     # Python dependencies
+├── ocr_service.spec     # PyInstaller configuration
+├── build_exe.py         # Cross-platform packaging script
+├── build_exe.bat        # Windows packaging script
+├── test_ocr.py          # Test script
+├── README.md           # Documentation
 └── .github/
     └── workflows/
-        └── test.yml    # GitHub Actions配置
+        └── test.yml    # GitHub Actions configuration
 ```
 
-## 开发和测试
+## Development and Testing
 
-### 本地测试
+### Local Testing
 
 ```bash
-# 运行测试
-python test_ocr.py
+# Run tests
+python test_basic.py
 
-# 测试特定图像
+# Test specific image
 python test_ocr.py your_image.png
 ```
 
 ### GitHub Actions
 
-项目配置了自动测试工作流，推送代码后会自动：
+The project has automatic testing workflow configured. After pushing code, it will automatically:
 
-1. 在多种Python版本和操作系统上测试
-2. 验证依赖安装
-3. 测试OCR功能
-4. 构建可执行文件
+1. Test on multiple Python versions and operating systems
+2. Verify dependency installation
+3. Test OCR functionality
+4. Build executable files
 
-## 优化建议
+## Optimization Suggestions
 
-如果识别准确率不理想，可以尝试：
+If recognition accuracy is not ideal, try:
 
-1. **图像质量**：确保验证码清晰，无过多噪点
-2. **对比度**：字符与背景要有足够对比度
-3. **字符间距**：字符不要太密集或太分散
-4. **字体大小**：字符大小适中
+1. **Image quality**: Ensure captcha is clear without excessive noise
+2. **Contrast**: Characters should have sufficient contrast with background
+3. **Character spacing**: Characters should not be too dense or too sparse
+4. **Font size**: Character size should be moderate
 
-## 技术栈
+## Technology Stack
 
-- **后端框架**：Flask + Waitress
-- **OCR引擎**：ddddocr
-- **图像处理**：OpenCV + Pillow
-- **打包工具**：PyInstaller
-- **测试**：GitHub Actions
+- **Backend framework**: Flask + Waitress
+- **OCR engine**: ddddocr
+- **Image processing**: OpenCV + Pillow
+- **Packaging tool**: PyInstaller
+- **Testing**: GitHub Actions
 
-## 许可证
+## License
 
 MIT License
 # OCRdetect

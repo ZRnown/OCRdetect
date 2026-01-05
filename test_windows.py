@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Windows兼容性测试脚本
-用于在Windows环境中测试OCR服务
+Windows compatibility test script
+Used to test OCR service in Windows environment
 """
 
 import os
@@ -10,20 +10,20 @@ import platform
 import subprocess
 
 def test_windows_compatibility():
-    """测试Windows兼容性"""
-    print("Windows兼容性测试")
+    """Test Windows compatibility"""
+    print("Windows compatibility test")
 
     system = platform.system().lower()
-    print(f"当前系统: {system}")
+    print(f"Current system: {system}")
 
     if system != "windows":
-        print("注意：当前不在Windows系统上运行")
+        print("Note: Not currently running on Windows")
         return True
 
-    # 测试必要的命令
+    # Test necessary commands
     commands_to_test = [
-        ("python --version", "Python版本检查"),
-        ("pip --version", "Pip版本检查"),
+        ("python --version", "Python version check"),
+        ("pip --version", "Pip version check"),
     ]
 
     for cmd, desc in commands_to_test:
@@ -41,39 +41,39 @@ def test_windows_compatibility():
     return True
 
 def test_service_startup():
-    """测试服务启动（简化的Windows版本）"""
-    print("服务启动测试")
+    """Test service startup (simplified Windows version)"""
+    print("Service startup test")
 
     try:
-        # 简化的启动测试
+        # Simplified startup test
         result = subprocess.run([sys.executable, "main.py"],
                               capture_output=True,
                               text=True,
                               timeout=10)
 
-        # 检查是否成功启动（即使超时也是成功的，因为服务会持续运行）
-        if "正在初始化 ddddocr 模型" in result.stdout:
-            print("服务启动成功")
+        # Check if startup was successful (timeout is also successful as service runs continuously)
+        if "Initializing ddddocr model" in result.stdout:
+            print("Service started successfully")
             return True
         else:
-            print(f"服务启动失败: {result.stdout}")
+            print(f"Service startup failed: {result.stdout}")
             return False
 
     except subprocess.TimeoutExpired:
-        print("服务启动成功（正常超时，服务正在运行）")
+        print("Service started successfully (normal timeout, service is running)")
         return True
     except Exception as e:
-        print(f"服务启动异常: {e}")
+        print(f"Service startup exception: {e}")
         return False
 
 def main():
-    """主测试函数"""
-    print("Windows环境测试开始")
+    """Main test function"""
+    print("Windows environment test started")
     print("=" * 40)
 
     tests = [
-        ("Windows兼容性测试", test_windows_compatibility),
-        ("服务启动测试", test_service_startup),
+        ("Windows compatibility test", test_windows_compatibility),
+        ("Service startup test", test_service_startup),
     ]
 
     passed = 0
@@ -85,13 +85,13 @@ def main():
             passed += 1
 
     print(f"\n{'='*40}")
-    print(f"测试结果: {passed}/{total} 通过")
+    print(f"Test results: {passed}/{total} passed")
 
     if passed == total:
-        print("所有测试通过！")
+        print("All tests passed!")
         return 0
     else:
-        print("部分测试失败")
+        print("Some tests failed")
         return 1
 
 if __name__ == "__main__":
