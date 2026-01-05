@@ -32,10 +32,10 @@ def test_windows_compatibility():
             if result.returncode == 0:
                 print(f"[OK] {desc}: {result.stdout.strip()}")
             else:
-                print(f"[ERROR] {desc} 失败: {result.stderr.strip()}")
+                print(f"[ERROR] {desc} failed: {result.stderr.strip()}")
                 return False
         except Exception as e:
-            print(f"[ERROR] {desc} 异常: {e}")
+            print(f"[ERROR] {desc} exception: {e}")
             return False
 
     return True
