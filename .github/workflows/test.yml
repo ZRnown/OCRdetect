@@ -15,6 +15,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        clean: true
+        fetch-depth: 0
+
+    - name: Verify file content
+      run: |
+        echo "Checking test_basic.py content:"
+        head -10 test_basic.py
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
