@@ -19,20 +19,20 @@ CORS(app)  # 允许跨域，这样油猴脚本才能访问
 print("正在初始化 ddddocr 模型... (首次运行可能需要下载模型)")
 # 尝试多种模型配置以提高识别准确率
 try:
-    # 首先尝试标准模型
-    ocr = ddddocr.DdddOcr(show_ad=False)
-    print("✅ 使用标准 ddddocr 模型")
+        # 首先尝试标准模型
+        ocr = ddddocr.DdddOcr(show_ad=False)
+        print("使用标准 ddddocr 模型")
 except Exception as e:
     print(f"标准模型加载失败，尝试其他配置: {e}")
     try:
         # 如果标准模型失败，尝试 old=True 参数
         ocr = ddddocr.DdddOcr(show_ad=False, old=True)
-        print("✅ 使用旧版 ddddocr 模型")
+        print("使用旧版 ddddocr 模型")
     except Exception as e2:
         print(f"旧版模型也失败: {e2}")
         raise
 
-print("✅ 模型加载完毕，OCR 服务已启动！监听端口 5000")
+print("模型加载完毕，OCR 服务已启动！监听端口 5000")
 
 def preprocess_image(img_bytes):
     """图像预处理以提高 OCR 识别准确率"""
