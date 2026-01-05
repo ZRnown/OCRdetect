@@ -1,6 +1,6 @@
-# OCR 服务
+# OCRdetect
 
-一个基于ddddocr的验证码识别Flask API服务，支持图像预处理以提高识别准确率。
+一个基于ddddocr的验证码识别Flask API服务，支持图像预处理以提高识别准确率。可打包成Windows可执行文件，无需Python环境。
 
 ## 功能特点
 
@@ -24,20 +24,22 @@ python main.py
 
 ### 方法2：打包成可执行文件（推荐）
 
-#### Windows
+#### Windows打包
 ```cmd
 # 运行打包脚本
 python build_exe.py
-# 或双击 build_exe.bat
+
+# 或在Windows上双击
+build_exe.bat
 ```
 
-#### Linux/Mac
+打包完成后，会在 `dist/` 目录下生成 `OCR_Service.exe` 文件，可以直接在任何Windows电脑上运行，无需安装Python。
+
+#### 其他平台
+虽然主要针对Windows优化，但也可以在Linux/Mac上打包：
 ```bash
-# 运行打包脚本
 python build_exe.py
 ```
-
-打包完成后，会在 `dist/` 目录下生成可执行文件，可以直接在没有Python环境的电脑上运行。
 
 ## API 使用
 

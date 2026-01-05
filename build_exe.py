@@ -51,73 +51,17 @@ def build_executable():
     """构建可执行文件"""
     system = platform.system().lower()
 
-    if system == "windows":
-        spec_file = "ocr_service.spec"
-    else:
-        # 为非Windows系统创建简单的spec
-        spec_content = '''
-# -*- mode: python ; coding: utf-8 -*-
+    # 使用简化的PyInstaller命令，不依赖复杂的spec文件
+    cmd = "pyinstaller --clean --onefile --hidden-import=ddddocr --hidden-import=flask_cors --hidden-import=waitress --hidden-import=cv2 --hidden-import=PIL --hidden-import=PIL.Image --hidden-import=numpy --hidden-import=sklearn main.py"
 
-block_cipher = None
-
-a = Analysis(
-    ['main.py'],
-    pathex=[],
-    binaries=[],
-    datas=[],
-    hiddenimports=[
-        'ddddocr',
-        'flask_cors',
-        'waitress',
-        'cv2',
-        'PIL',
-        'PIL.Image',
-        'numpy',
-    ],
-    hookspath=[],
-    hooksconfig={},
-    runtime_hooks=[],
-    excludes=[],
-    win_no_prefer_redirects=False,
-    win_private_assemblies=False,
-    cipher=block_cipher,
-    noarchive=False,
-)
-
-pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
-
-exe = EXE(
-    pyz,
-    a.scripts,
-    a.binaries,
-    a.zipfiles,
-    a.datas,
-    [],
-    name='OCR_Service',
-    debug=False,
-    bootloader_ignore_signals=False,
-    strip=False,
-    upx=True,
-    upx_exclude=[],
-    runtime_tmpdir=None,
-    console=True,
-    disable_windowed_traceback=False,
-    argv_emulation=False,
-    target_arch=None,
-    codesign_identity=None,
-    entitlements_file=None,
-)
-'''
-        with open("ocr_service_temp.spec", "w") as f:
-            f.write(spec_content)
-        spec_file = "ocr_service_temp.spec"
-
-    cmd = f"pyinstaller --clean --onefile {spec_file}"
     success = run_command(cmd, "构建可执行文件")
 
-    # 清理临时spec文件
-    if spec_file == "ocr_service_temp.spec" and os.path.exists(spec_file):
-        os.remove(spec_file)
+    # 重命名生成的文件
+    if success and os.path.exists("dist/main.exe" if system == "windows" else "dist/main"):
+        exe_name = "OCR_Service.exe" if system == "windows" else "OCR_Service"
+        dist_exe = os.path.join("dist", exe_name)
+        os.rename("dist/main.exe" if system == "windows" else "dist/main", dist_exe)
+        print(f"✅ 生成文件已重命名为: {dist_exe}")
 
     return success
 
