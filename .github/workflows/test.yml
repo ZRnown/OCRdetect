@@ -44,7 +44,7 @@ jobs:
 
     - name: Test OCR service startup
       run: |
-        # 测试服务是否能正常启动（运行5秒后停止）
+        # Test if service can start normally (run for 5 seconds then stop)
         python -c "
         import subprocess
         import time
@@ -52,24 +52,24 @@ jobs:
         import os
 
         try:
-            # 启动服务进程
+            # Start service process
             proc = subprocess.Popen(['python', 'main.py'])
 
-            # 等待5秒让服务启动
+            # Wait 5 seconds for service to start
             time.sleep(5)
 
-            # 终止进程
+            # Terminate process
             if os.name == 'nt':  # Windows
                 proc.terminate()
             else:  # Unix-like
                 os.kill(proc.pid, signal.SIGTERM)
 
-            # 等待进程结束
+            # Wait for process to end
             proc.wait(timeout=5)
-            print('✅ 服务启动测试成功')
+            print('Service startup test successful')
 
         except Exception as e:
-            print(f'❌ 服务启动测试失败: {e}')
+            print(f'Service startup test failed: {e}')
             if 'proc' in locals():
                 proc.kill()
         "
