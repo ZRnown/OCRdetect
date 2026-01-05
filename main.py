@@ -19,10 +19,10 @@ CORS(app)  # Allow CORS for userscript access
 print("Initializing ddddocr model... (May download model on first run)")
 # Try multiple model configurations to improve recognition accuracy
 try:
-        # First try standard model
-        ocr = ddddocr.DdddOcr(show_ad=False)
-        print("Using standard ddddocr model")
-    except Exception as e:
+    # First try standard model
+    ocr = ddddocr.DdddOcr(show_ad=False)
+    print("Using standard ddddocr model")
+except Exception as e:
         print(f"Standard model loading failed, trying other configurations: {e}")
         try:
             # If standard model fails, try old=True parameter
