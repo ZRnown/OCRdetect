@@ -127,3 +127,4 @@ python test_ocr.py your_image.png
 
 MIT License
 # OCRdetect
+# OCRdetect
